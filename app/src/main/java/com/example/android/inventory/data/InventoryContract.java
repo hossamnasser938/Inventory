@@ -18,10 +18,11 @@ public class InventoryContract {
     public static final String CONSTRAINT_UNIQUE = " UNIQUE";
     public static final String CONSTRAINT_DEFAULT = " DEFAULT";
 
-    public static final class product implements BaseColumns{
+    public static final class Product implements BaseColumns{
+
+        public static final String TABLE_NAME = " Product";
 
         public static final String _ID = BaseColumns._ID;
-        public static final String TABLE_NAME = "Product";
         public static final String COLUMN_PRODUCT_NAME = "Product Name";
         public static final String COLUMN_PRICE = "Price";
         public static final String COLUMN_QUANTITY = "Quantity";
