@@ -91,7 +91,7 @@
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:text="+"/>
-                
+
                 <TextView
                     android:id="@+id/see_quantity"
                     android:layout_width="0dp"

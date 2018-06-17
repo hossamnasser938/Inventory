@@ -16,4 +16,8 @@
     <string name="supplier_phone">Supplier Phone</string>
 
     <string name="order">Order</string>
+
+    <string name="edit">Edit</string>
+
+    <string name="delete">Delete</string>
 </resources>
