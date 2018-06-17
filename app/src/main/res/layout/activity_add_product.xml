@@ -19,7 +19,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/name"
+            android:id="@+id/add_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
@@ -27,7 +27,7 @@
             android:inputType="text"/>
 
         <EditText
-            android:id="@+id/unit_price"
+            android:id="@+id/add_unit_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
@@ -35,7 +35,7 @@
             android:inputType="number"/>
 
         <EditText
-            android:id="@+id/quantity"
+            android:id="@+id/add_quantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
@@ -43,7 +43,7 @@
             android:inputType="numberDecimal"/>
 
         <EditText
-            android:id="@+id/supplier_name"
+            android:id="@+id/add_supplier_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
@@ -51,7 +51,7 @@
             android:inputType="textPersonName"/>
 
         <EditText
-            android:id="@+id/supplier_phone"
+            android:id="@+id/add_supplier_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
