@@ -18,8 +18,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mainText = findViewById(R.id.main_text);
-
         InventoryDBHelper helper = new InventoryDBHelper(this);
         SQLiteDatabase db = helper.getReadableDatabase();
 
@@ -63,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
                 dataRetrieved += "" + currentId + " | " + currentProductName + " | " + currentPrice + " | " + currentQuantity + " | " + currentSupplierName + " | " + currentSupplierPhoneNumber + "\n";
             }
 
-            mainText.setText(dataRetrieved);
         }
         finally {
             //Get rid of the Cursor object
