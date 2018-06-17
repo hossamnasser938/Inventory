@@ -1,12 +1,12 @@
-<!-- Product details that will be showed at Main Layout -->
-
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Product details that will be showed at Main Layout -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
     
     <TextView
+        android:layout_margin="@dimen/default_margin"
         android:id="@+id/product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,9 +14,11 @@
 
 
     <LinearLayout
+        android:layout_margin="@dimen/default_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_below="@id/product_name">
 
         <TextView
             android:id="@+id/product_quantity"
@@ -31,7 +33,6 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"/>/>
 
         <TextView
-            android:text="15"
             android:id="@+id/product_unit_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,4 +45,13 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"/>
 
     </LinearLayout>
-</LinearLayout>
+
+        <Button
+            android:layout_margin="@dimen/default_margin"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sale"
+            android:layout_alignParentRight="true"/>
+
+</RelativeLayout>
