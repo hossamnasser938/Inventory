@@ -79,28 +79,48 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/default_margin"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>/>
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
-            <TextView
-                android:id="@+id/see_quantity"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/default_margin"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>/>
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/see_increase_btn"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="+"/>
+                
+                <TextView
+                    android:id="@+id/see_quantity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/default_margin"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+                <Button
+                    android:id="@+id/see_decrease_btn"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="-"/>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/see_supplier_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/default_margin"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>/>
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
             <TextView
                 android:id="@+id/see_supplier_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/default_margin"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>/>
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
         </LinearLayout>
         
