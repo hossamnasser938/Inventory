@@ -25,5 +25,13 @@
 
     </RelativeLayout>
 
+    <ImageButton
+        android:id="@+id/main_insert_btn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="@dimen/default_margin"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/add_icon"/>
 
 </RelativeLayout>
