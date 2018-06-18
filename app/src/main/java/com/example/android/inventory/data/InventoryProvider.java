@@ -230,7 +230,7 @@ public class InventoryProvider extends ContentProvider{
         if(supplierName == null){
             throw new IllegalArgumentException("Please enter name of the supplier");
         }
-        
+
         getContext().getContentResolver().notifyChange(uri, null);
         return database.update(InventoryContract.Product.TABLE_NAME, values, selection, selectionArgs);
 
