@@ -42,47 +42,4 @@ public class InventoryDBHelper extends SQLiteOpenHelper {
         //Nothing for now
     }
 
-    public static void insertRowIntoInventoryTable(Context context, SQLiteDatabase db){
-        //Prepare Product info
-        String productName = "mouse", supplierName = "Hosam", supplierPhoneNumber = "01026501235";
-        double price = 15.0;
-        int quantity = 10;
-
-        //Put them in ContentValues object
-        ContentValues values = new ContentValues();
-        values.put(Product.COLUMN_PRODUCT_NAME, productName);
-        values.put(Product.COLUMN_SUPPLIER_NAME, supplierName);
-        values.put(Product.COLUMN_SUPPLIER_PHONE_NUMBER, supplierPhoneNumber);
-        values.put(Product.COLUMN_PRICE, price);
-        values.put(Product.COLUMN_QUANTITY, quantity);
-
-        //Insert this row in Product table
-        if(db.insert(Product.TABLE_NAME, null, values) != -1){
-            Toast.makeText(context, "Item Inserted", Toast.LENGTH_SHORT);
-        }
-        else {
-            Toast.makeText(context, "Error Inserting Item", Toast.LENGTH_SHORT);
-        }
-
-    }
-
-    public static Cursor readDataFromInventoryTable(SQLiteDatabase db){
-        //Specify columns to be read
-        String columns[] = {Product._ID,
-                Product.COLUMN_PRODUCT_NAME,
-                Product.COLUMN_PRICE,
-                Product.COLUMN_QUANTITY,
-                Product.COLUMN_SUPPLIER_NAME,
-                Product.COLUMN_SUPPLIER_PHONE_NUMBER};
-
-        //Query the database
-        return db.query(Product.TABLE_NAME,
-                columns,
-                null,
-                null,
-                null,
-                null,
-                null);
-    }
-
 }

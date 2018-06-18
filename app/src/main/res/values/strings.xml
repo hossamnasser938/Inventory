@@ -22,4 +22,10 @@
     <string name="delete">Delete</string>
 
     <string name="no_data">No Data Entered Yet</string>
+
+    <string name="cancel">Cancel</string>
+
+    <string name="error">Error</string>
+
+    <string name="deleted">Deleted Successfully</string>
 </resources>
