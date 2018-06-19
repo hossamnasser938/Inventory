@@ -18,8 +18,8 @@ public class InventoryProvider extends ContentProvider{
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static{
-        sUriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY, InventoryContract.Product.TABLE_NAME, PRODUCTS);
-        sUriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY, InventoryContract.Product.TABLE_NAME + "/#", PRODUCT_ID);
+        sUriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY, InventoryContract.PATH_PRODUCT, PRODUCTS);
+        sUriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY, InventoryContract.PATH_PRODUCT + "/#", PRODUCT_ID);
     }
 
     InventoryDBHelper mDbHelper;
@@ -202,33 +202,41 @@ public class InventoryProvider extends ContentProvider{
         Validate data before inserting
          */
         //Validate product name
-        String name = values.getAsString(InventoryContract.Product.COLUMN_PRODUCT_NAME);
-        if(name == null){
-            throw new IllegalArgumentException("Please enter name of the product");
+        if(values.containsKey(InventoryContract.Product.COLUMN_PRODUCT_NAME)){
+            String name = values.getAsString(InventoryContract.Product.COLUMN_PRODUCT_NAME);
+            if(name == null){
+                throw new IllegalArgumentException("Please enter name of the product");
+            }
         }
 
         //Validate product quantity
-        Integer quantity = values.getAsInteger(InventoryContract.Product.COLUMN_QUANTITY);
-        if(quantity == null){
-            quantity = 0;
-        }
-        else if(quantity < 0){
-            throw new IllegalArgumentException("Please enter positive number for quantity");
+        if(values.containsKey(InventoryContract.Product.COLUMN_QUANTITY)){
+            Integer quantity = values.getAsInteger(InventoryContract.Product.COLUMN_QUANTITY);
+            if(quantity == null){
+                quantity = 0;
+            }
+            else if(quantity < 0){
+                throw new IllegalArgumentException("Please enter positive number for quantity");
+            }
         }
 
         //Validate product price
-        Double price = values.getAsDouble(InventoryContract.Product.COLUMN_PRICE);
-        if(price == null){
-            throw new IllegalArgumentException("Please enter price of the product");
-        }
-        else if(price < 0){
-            throw new IllegalArgumentException("Please positive number for price");
+        if(values.containsKey(InventoryContract.Product.COLUMN_PRICE)){
+            Double price = values.getAsDouble(InventoryContract.Product.COLUMN_PRICE);
+            if(price == null){
+                throw new IllegalArgumentException("Please enter price of the product");
+            }
+            else if(price < 0){
+                throw new IllegalArgumentException("Please positive number for price");
+            }
         }
 
         //Validate supplier name
-        String supplierName = values.getAsString(InventoryContract.Product.COLUMN_SUPPLIER_NAME);
-        if(supplierName == null){
-            throw new IllegalArgumentException("Please enter name of the supplier");
+        if(values.containsKey(InventoryContract.Product.COLUMN_SUPPLIER_NAME)){
+            String supplierName = values.getAsString(InventoryContract.Product.COLUMN_SUPPLIER_NAME);
+            if(supplierName == null){
+                throw new IllegalArgumentException("Please enter name of the supplier");
+            }
         }
 
         getContext().getContentResolver().notifyChange(uri, null);

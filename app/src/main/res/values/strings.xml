@@ -28,4 +28,14 @@
     <string name="error">Error</string>
 
     <string name="deleted">Deleted Successfully</string>
+
+    <string name="inserted">Inserted Successfully</string>
+
+    <string name="add_new">Add New Product</string>
+
+    <string name="edit_existing">Edit Existing Product</string>
+
+    <string name="updated">Updated Successfully</string>
+
+    <string name="no_phone">No phone number available for that customer</string>
 </resources>

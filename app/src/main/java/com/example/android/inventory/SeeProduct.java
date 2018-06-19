@@ -2,6 +2,7 @@ package com.example.android.inventory;
 
 import android.app.AlertDialog;
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,8 +11,11 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +33,10 @@ public class SeeProduct extends AppCompatActivity implements LoaderManager.Loade
     private TextView supplierNameView;
     private TextView supplierPhoneView;
 
+    private String supplierNumber;
+    private int quantity;
+    private int id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +51,54 @@ public class SeeProduct extends AppCompatActivity implements LoaderManager.Loade
         Intent intent = getIntent();
         recievedUri = intent.getData();
         getLoaderManager().initLoader(INVENTORY_LOADER, null, this);
+
+        Button orderBtn = findViewById(R.id.see_order_btn);
+        orderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(recievedUri != null){
+                    if(TextUtils.isEmpty(supplierNumber)){
+                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + supplierNumber));
+                        if(intent.resolveActivity(getPackageManager()) != null){
+                            startActivity(intent);
+                        }
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), R.string.no_phone, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+        });
+
+        Button increaseBtn = findViewById(R.id.see_increase_btn);
+        Button decreaseBtn = findViewById(R.id.see_decrease_btn);
+
+        increaseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                quantity++;
+                ContentValues values = new ContentValues();
+                values.put(InventoryContract.Product.COLUMN_QUANTITY, quantity);
+                if(getContentResolver().update(recievedUri, values, null, null) == 0){
+                    Toast.makeText(getApplicationContext(), R.string.error, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        decreaseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(quantity > 0){
+                    quantity--;
+                    ContentValues values = new ContentValues();
+                    values.put(InventoryContract.Product.COLUMN_QUANTITY, quantity);
+                    if(getContentResolver().update(recievedUri, values, null, null) == 0){
+                        Toast.makeText(getApplicationContext(), R.string.error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -69,15 +125,15 @@ public class SeeProduct extends AppCompatActivity implements LoaderManager.Loade
     }
 
     private void showConfirmationDialog(){
-        final AlertDialog.Builder dialog = new AlertDialog.Builder(getApplicationContext());
-        dialog.setTitle("Are you sure you want to delete current product?");
-        dialog.setPositiveButton(getResources().getString(R.string.delete), new DialogInterface.OnClickListener() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(SeeProduct.this);
+        builder.setTitle("Are you sure you want to delete current product?");
+        builder.setPositiveButton(getResources().getString(R.string.delete), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         deletePet();
                     }
                 });
-        dialog.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(dialogInterface != null){
@@ -85,6 +141,9 @@ public class SeeProduct extends AppCompatActivity implements LoaderManager.Loade
                 }
             }
         });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void deletePet(){
@@ -93,7 +152,7 @@ public class SeeProduct extends AppCompatActivity implements LoaderManager.Loade
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.error), Toast.LENGTH_SHORT);
             }
             else{
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.deleted), Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.deleted), Toast.LENGTH_SHORT).show();
             }
         }
         finish();
@@ -128,17 +187,21 @@ public class SeeProduct extends AppCompatActivity implements LoaderManager.Loade
         if (cursor.moveToFirst()) {
             // Extract out the value from the Cursor for the given column index
             String name = cursor.getString(cursor.getColumnIndex(InventoryContract.Product.COLUMN_PRODUCT_NAME));
-            int quantity = cursor.getInt(cursor.getColumnIndex(InventoryContract.Product.COLUMN_QUANTITY));
+            quantity = cursor.getInt(cursor.getColumnIndex(InventoryContract.Product.COLUMN_QUANTITY));
             double price = cursor.getDouble(cursor.getColumnIndex(InventoryContract.Product.COLUMN_PRICE));
             String supplierName = cursor.getString(cursor.getColumnIndex(InventoryContract.Product.COLUMN_SUPPLIER_NAME));
-            String supplierPhone = cursor.getString(cursor.getColumnIndex(InventoryContract.Product.COLUMN_SUPPLIER_PHONE_NUMBER));
+            supplierNumber = cursor.getString(cursor.getColumnIndex(InventoryContract.Product.COLUMN_SUPPLIER_PHONE_NUMBER));
+            id = cursor.getInt(cursor.getColumnIndex(InventoryContract.Product._ID));
 
             // Update the views on the screen with the values from the database
             nameView.setText(name);
             quantityView.setText(String.valueOf(quantity));
             priceView.setText(String.valueOf(price));
             supplierNameView.setText(supplierName);
-            supplierPhoneView.setText(supplierPhone);
+            if(TextUtils.isEmpty(supplierNumber)){
+                supplierNumber = "No phone for this supplier";
+            }
+            supplierPhoneView.setText(supplierNumber);
         }
     }
 
