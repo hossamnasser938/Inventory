@@ -17,7 +17,6 @@ public class InventoryContract {
     public static final String CONSTRAINT_PRIMARY_KEY = " PRIMARY KEY";
     public static final String CONSTRAINT_AUTOINCREMENT = " AUTOINCREMENT";
     public static final String CONSTRAINT_NOT_NULL = " NOT NULL";
-    public static final String CONSTRAINT_UNIQUE = " UNIQUE";
     public static final String CONSTRAINT_DEFAULT = " DEFAULT";
 
     public static final String CONTENT_AUTHORITY = "com.example.android.inventory";
@@ -36,7 +35,7 @@ public class InventoryContract {
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PRODUCT;
 
         /**
-         * The MIME type of the {@link #CONTENT_URI} for a single pet.
+         * The MIME type of the {@link #CONTENT_URI} for a single product.
          */
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PRODUCT;

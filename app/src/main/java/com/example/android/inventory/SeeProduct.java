@@ -34,8 +34,8 @@ public class SeeProduct extends AppCompatActivity implements LoaderManager.Loade
     private TextView supplierPhoneView;
 
     private String supplierNumber;
-    private int quantity;
-    private int id;
+    private Integer quantity;
+    private Integer id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class SeeProduct extends AppCompatActivity implements LoaderManager.Loade
             @Override
             public void onClick(View view) {
                 if(recievedUri != null){
-                    if(TextUtils.isEmpty(supplierNumber)){
+                    if(!TextUtils.isEmpty(supplierNumber)){
                         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + supplierNumber));
                         if(intent.resolveActivity(getPackageManager()) != null){
                             startActivity(intent);
@@ -103,7 +103,7 @@ public class SeeProduct extends AppCompatActivity implements LoaderManager.Loade
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu options from the res/menu/menu_editor.xml file.
+        // Inflate the menu options from the res/menu/menu_see_product.xml file.
         // This adds menu items to the app bar.
         getMenuInflater().inflate(R.menu.menu_see_product, menu);
         return true;
@@ -188,7 +188,7 @@ public class SeeProduct extends AppCompatActivity implements LoaderManager.Loade
             // Extract out the value from the Cursor for the given column index
             String name = cursor.getString(cursor.getColumnIndex(InventoryContract.Product.COLUMN_PRODUCT_NAME));
             quantity = cursor.getInt(cursor.getColumnIndex(InventoryContract.Product.COLUMN_QUANTITY));
-            double price = cursor.getDouble(cursor.getColumnIndex(InventoryContract.Product.COLUMN_PRICE));
+            Double price = cursor.getDouble(cursor.getColumnIndex(InventoryContract.Product.COLUMN_PRICE));
             String supplierName = cursor.getString(cursor.getColumnIndex(InventoryContract.Product.COLUMN_SUPPLIER_NAME));
             supplierNumber = cursor.getString(cursor.getColumnIndex(InventoryContract.Product.COLUMN_SUPPLIER_PHONE_NUMBER));
             id = cursor.getInt(cursor.getColumnIndex(InventoryContract.Product._ID));

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 public class InventoryProvider extends ContentProvider{
 
@@ -109,14 +110,14 @@ public class InventoryProvider extends ContentProvider{
          */
         //Validate product name
         String name = values.getAsString(InventoryContract.Product.COLUMN_PRODUCT_NAME);
-        if(name == null){
+        if(name == null || TextUtils.isEmpty(name)){
             throw new IllegalArgumentException("Please enter name of the product");
         }
 
         //Validate product quantity
         Integer quantity = values.getAsInteger(InventoryContract.Product.COLUMN_QUANTITY);
         if(quantity == null){
-            quantity = 0;
+            throw new IllegalArgumentException("Please enter quantity of the product");
         }
         else if(quantity < 0){
             throw new IllegalArgumentException("Please enter positive number for quantity");
@@ -133,8 +134,14 @@ public class InventoryProvider extends ContentProvider{
 
         //Validate supplier name
         String supplierName = values.getAsString(InventoryContract.Product.COLUMN_SUPPLIER_NAME);
-        if(supplierName == null){
+        if(supplierName == null || TextUtils.isEmpty(supplierName)){
             throw new IllegalArgumentException("Please enter name of the supplier");
+        }
+
+        //Validate supplier phone
+        String supplierPhone = values.getAsString(InventoryContract.Product.COLUMN_SUPPLIER_PHONE_NUMBER);
+        if(supplierPhone == null || TextUtils.isEmpty(supplierPhone)){
+            throw new IllegalArgumentException("Please enter phone of the supplier");
         }
 
         rowId = database.insert(InventoryContract.Product.TABLE_NAME, null, values);
@@ -196,7 +203,6 @@ public class InventoryProvider extends ContentProvider{
 
     private int updateProduct(Uri uri, ContentValues values, String selection, String[] selectionArgs){
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
-        int rowsUpdated;
 
         /*
         Validate data before inserting
@@ -204,7 +210,7 @@ public class InventoryProvider extends ContentProvider{
         //Validate product name
         if(values.containsKey(InventoryContract.Product.COLUMN_PRODUCT_NAME)){
             String name = values.getAsString(InventoryContract.Product.COLUMN_PRODUCT_NAME);
-            if(name == null){
+            if(name == null || TextUtils.isEmpty(name)){
                 throw new IllegalArgumentException("Please enter name of the product");
             }
         }
@@ -213,7 +219,7 @@ public class InventoryProvider extends ContentProvider{
         if(values.containsKey(InventoryContract.Product.COLUMN_QUANTITY)){
             Integer quantity = values.getAsInteger(InventoryContract.Product.COLUMN_QUANTITY);
             if(quantity == null){
-                quantity = 0;
+                throw new IllegalArgumentException("Please enter quantity of the product");
             }
             else if(quantity < 0){
                 throw new IllegalArgumentException("Please enter positive number for quantity");
@@ -234,8 +240,16 @@ public class InventoryProvider extends ContentProvider{
         //Validate supplier name
         if(values.containsKey(InventoryContract.Product.COLUMN_SUPPLIER_NAME)){
             String supplierName = values.getAsString(InventoryContract.Product.COLUMN_SUPPLIER_NAME);
-            if(supplierName == null){
+            if(supplierName == null || TextUtils.isEmpty(supplierName)){
                 throw new IllegalArgumentException("Please enter name of the supplier");
+            }
+        }
+
+        //Validate supplier phone
+        if(values.containsKey(InventoryContract.Product.COLUMN_SUPPLIER_PHONE_NUMBER)){
+            String supplierPhone = values.getAsString(InventoryContract.Product.COLUMN_SUPPLIER_PHONE_NUMBER);
+            if(supplierPhone == null || TextUtils.isEmpty(supplierPhone)){
+                throw new IllegalArgumentException("Please enter phone of the supplier");
             }
         }
 

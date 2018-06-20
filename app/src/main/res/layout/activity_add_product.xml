@@ -28,6 +28,7 @@
 
         <EditText
             android:id="@+id/add_unit_price"
+            android:maxLength="10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
@@ -36,6 +37,7 @@
 
         <EditText
             android:id="@+id/add_quantity"
+            android:maxLength="10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
@@ -56,7 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
             android:hint="@string/supplier_phone"
-            android:inputType="phone"/>
+            android:inputType="phone"
+            android:maxLength="10"/>
 
         <Button
             android:id="@+id/add_update_btn"
